@@ -1,0 +1,15 @@
+citHeader("To cite gbifexplorer in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "gbifexplorer",
+  author   = "Antonio J. Pérez-Luque",
+  # journal  = ,
+  year     = "2023",
+  # volume   = ,
+  # number   = ,
+  # pages    = ,
+  url      = "https://ajpelu.github.io/gbifexplorer/",
+  textVersion = paste("Pérez-Luque AJ. 2023. gbifexplorer.",
+                      "https://ajpelu.github.io/gbifexplorer/")
+)
