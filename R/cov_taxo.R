@@ -18,8 +18,14 @@
 #' # Calculate taxonomic coverage for scientificName and genus
 #' taxonomic_cov(borreguiles, category = c("scientificName", "genus"))
 #'
+#' @import dplyr
+#' @import purrr
+#'
 #' @export
 #'
+#'
+#'
+
 taxonomic_cov <- function(x,
                           category = c(
                             "scientificName", "kingdom", "phylum", "class",
@@ -45,13 +51,14 @@ taxonomic_cov <- function(x,
     select_categories <- category
   }
 
-  aux_summary <- function(y) {
+  aux_summary <- function(categories) {
+    n <- freq <- NULL
     x |>
       # group_by(!!!syms(y)) |>
-      group_by(across(all_of(y))) |>
-      tally() |>
-      mutate(freq = prop.table(n) * 100) |>
-      arrange(desc(freq))
+      dplyr::group_by(dplyr::across(dplyr::all_of(categories))) |>
+      dplyr::tally() |>
+      dplyr::mutate(freq = prop.table(n) * 100) |>
+      dplyr::arrange(dplyr::desc(freq))
   }
 
   out <- select_categories |>
