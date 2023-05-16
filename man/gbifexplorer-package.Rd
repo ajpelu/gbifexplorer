@@ -4,16 +4,21 @@
 \name{gbifexplorer-package}
 \alias{gbifexplorer}
 \alias{gbifexplorer-package}
-\title{gbifexplorer: What the Package Does (Title Case)}
+\title{gbifexplorer: Explore DarwinCore Archives and generates friendly coverage summaries}
 \description{
-More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
+The package use DarwinCore Archives and computes summaries for the spatial, temporal and taxonomical coverages. It also generates friendly reports for taxonomic coverage to be used as part of Data Papers.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://github.com/ajpelu/gbifexplorer}
+  \item \url{https://ajpelu.github.io/gbifexplorer/}
   \item Report bugs at \url{https://github.com/ajpelu/gbifexplorer/issues}
 }
+
+}
+\author{
+\strong{Maintainer}: Antonio Jesús Pérez-Luque \email{ajpelu@gmail.com} (\href{https://orcid.org/0000-0002-1747-0469}{ORCID})
 
 }
 \keyword{internal}
