@@ -1,11 +1,15 @@
 Package: gbifexplorer
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Explore DarwinCore Archives and generates friendly coverage summaries
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: 
+  c(
+    person("Antonio Jesús", "Pérez-Luque", , "ajpelu@gmail.com", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0002-1747-0469"))
+           )
+Description:The package use DarwinCore Archives and computes summaries for the 
+    spatial, temporal and taxonomical coverages. It also generates friendly reports 
+    for taxonomic coverage to be used as part of Data Papers.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
