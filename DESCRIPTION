@@ -13,7 +13,8 @@ Description: The package use DarwinCore Archives and computes summaries for the
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/ajpelu/gbifexplorer
+URL: https://github.com/ajpelu/gbifexplorer,
+    https://ajpelu.github.io/gbifexplorer/
 BugReports: https://github.com/ajpelu/gbifexplorer/issues
 Suggests: 
     covr,
