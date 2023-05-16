@@ -13,11 +13,26 @@ taxonomic_cov(
 \arguments{
 \item{x}{A dataframe}
 
-\item{category}{taxonomic ranks defined by DarwinCore standard}
+\item{category}{a character vector with taxonomic ranks defined by
+\href{https://dwc.tdwg.org/terms/}{DarwinCore} standard.}
 }
 \value{
-a list of ...
+A named list of tibbles summarizing the taxonomic coverage for each category.
 }
 \description{
-taxonomic_cov
+It generates the taxonomic coverage of the dataset
+}
+\details{
+It generates the taxonomic coverage of a occurrence dataset. For each
+category, the record numbers and relative frequencies of each taxa are computed. The
+category argument could be one of: \code{scientificName}, \code{kingdom}, \code{phylum}, \code{class},
+\code{order}, \code{family}, \code{subfamily} and \code{genus}. For get coverage in all categories
+type \code{all}.
+}
+\examples{
+# Example usage
+data(borreguiles)
+# Calculate taxonomic coverage for scientificName and genus
+taxonomic_cov(borreguiles, category = c("scientificName", "genus"))
+
 }
