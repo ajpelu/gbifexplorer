@@ -7,7 +7,7 @@ temp_zip <- file.path(temp_dir, "file.zip")
 
 download.file(url, destfile = temp_zip, mode = "wb")
 unzip(temp_zip, exdir = temp_dir)
-borreguiles <- read.csv(file = paste0(temp_dir, "/occurrence.txt"), sep = '\t')
+borreguiles <- read.csv(file = paste0(temp_dir, "/occurrence.txt"), sep = '\t', encoding = "UTF-8")
 
 usethis::use_data(borreguiles, overwrite = TRUE)
 
