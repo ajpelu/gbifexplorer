@@ -1,15 +1,13 @@
 citHeader("To cite gbifexplorer in publications use:")
 
-citEntry(
-  entry    = "Manual",
-  title    = "gbifexplorer",
-  author   = "Antonio J. Pérez-Luque",
-  # journal  = ,
-  year     = "2023",
-  # volume   = ,
-  # number   = ,
-  # pages    = ,
-  url      = "https://ajpelu.github.io/gbifexplorer/",
-  textVersion = paste("Pérez-Luque AJ. 2023. gbifexplorer.",
-                      "https://ajpelu.github.io/gbifexplorer/")
+bibentry(
+  bibtype = "Manual",
+  textVersion = "Pérez-Luque AJ (2023) gbifexplorer: Explore DarwinCore Archives and generates friendly coverage summaries. https://ajpelu.github.io/gbifexplorer/",
+  title        = "gbifexplorer: Explore DarwinCore Archives and generates friendly coverage summaries",
+  author       = c(
+                person("Antonio J. Pérez-Luque")),
+  year         = "2023",
+  url          = "https://ajpelu.github.io/gbifexplorer/",
 )
+
+
