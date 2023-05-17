@@ -24,6 +24,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     dplyr,
+    glue,
     purrr
 RoxygenNote: 7.2.2
 Roxygen: list(markdown = TRUE)
