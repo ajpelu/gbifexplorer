@@ -23,9 +23,6 @@
 #'
 #' @export
 #'
-#'
-#'
-
 taxonomic_cov <- function(x,
                           category = c(
                             "scientificName", "kingdom", "phylum", "class",

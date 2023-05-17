@@ -1,7 +1,7 @@
 Package: gbifexplorer
 Type: Package
 Title: Explore DarwinCore Archives and generates friendly coverage summaries
-Version: 0.1.0.9000
+Version: 0.1.0
 Authors@R: 
   c(
     person("Antonio Jesús", "Pérez-Luque", , "ajpelu@gmail.com", role = c("cre", "aut"),
