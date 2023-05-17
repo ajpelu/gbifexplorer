@@ -22,10 +22,16 @@
     <loc>https://ajpelu.github.io/gbifexplorer/reference/borreguiles.html</loc>
   </url>
   <url>
+    <loc>https://ajpelu.github.io/gbifexplorer/reference/cov_temporal.html</loc>
+  </url>
+  <url>
     <loc>https://ajpelu.github.io/gbifexplorer/reference/gbifexplorer-package.html</loc>
   </url>
   <url>
     <loc>https://ajpelu.github.io/gbifexplorer/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://ajpelu.github.io/gbifexplorer/reference/report_taxonomy.html</loc>
   </url>
   <url>
     <loc>https://ajpelu.github.io/gbifexplorer/reference/taxonomic_cov.html</loc>
