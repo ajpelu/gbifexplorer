@@ -34,3 +34,87 @@ You can install the development version of gbifexplorer from [GitHub](https://gi
 # install.packages("devtools")
 devtools::install_github("ajpelu/gbifexplorer")
 ```
+
+## Usage 
+
+The `gbifexplorer` package provides several functions for exploring and analyzing 
+occurrence data from the Global Biodiversity Information Facility (GBIF). Here is an
+example of the usage of three key functions: `cov_temporal`, `taxonomic_cov`, and 
+`report_taxonomy`.
+
+We will use a dataset contains information about the phenology of flora in 
+Mediterranean high-mountains meadows in the Sierra Nevada region (Spain). This dataset
+is deposited in [GBIF](https://doi.org/10.15468/qhqzub) and also published as [Data Paper](https://doi.org/10.3897/phytokeys.46.9116). It also is included as 
+example data in the `gbifexplorer` pkg. 
+
+### Calculate the Temporal Coverage of an Ocurrence Dataset
+The `gbifexplorer::cov_temporal()` function calculates the temporal coverage of a dataset based 
+on a specified date variable provided by the user. It determines the minimum and 
+maximum dates from the date variable and returns them in a data frame.
+
+```{r}
+library(gbifexplorer)
+data("borreguiles")
+
+# Calculate temporal coverage
+temporal_coverage <- cov_temporal(borreguiles, date_var = "eventDate", 
+                                  date_format = "%Y-%m-%d")
+
+```
+
+It returns a data frame (`temporal_coverage`) that contains the minimum and maximum 
+dates from the dataset. This function also prints the temporal coverage as text
+and could be used to document the metadata of the dataset. 
+
+## Get the Taxonomic Coverage of an Ocurrence Dataset and report it. 
+The `gbifexplorer::taxonomic_cov()` function generates the taxonomic coverage of 
+a dataframe. It calculates the record numbers and relative frequencies of each 
+taxonomic category specified, allowing to compute the taxonomic coverage of an 
+occurence dataset. The function returns a named list of tibbles summarizing 
+the taxonomic coverage for each category. 
+
+```{r}
+# Calculate taxonomic coverage for scientificName and genus
+d <- taxonomic_cov(borreguiles, category = c("class", "order"))
+d
+```
+
+The result is a list contains tibbles summarizing the taxonomic coverage for each 
+taxonomic category.
+
+Then, it is possible to generate a Report for different taxa categories by using 
+the `gbifexplorer::report_taxonomy()` function. It generates a summary report of 
+the taxonomy of a specified taxa rank, and provides information about the most 
+represented taxa based on the frequency information of the taxa rank. The default 
+is the top 5 most represented taxa but is could be change using the argument `top`
+
+For instance, if you are interested in the 5 most frequent order: 
+
+```{r}
+report_taxonomy(d$order, top = 5)
+```
+
+The user might also be interested in calculate the taxonomic coverage for all 
+taxonomic categories present in an occurrence dataset. For this, we also used the 
+`purrr` package 
+
+```{r}
+library(purrr)
+all_taxa <- taxonomic_cov(borreguiles, category = "all")
+
+all_taxa |> 
+  purrr::map(~report_taxonomy(., top=10)) |> 
+  purrr::list_transpose()
+
+```
+
+## Interctive app 
+We also have developed a shiny app to allow the user to generate the taxonomic coverage
+of an occurence data. To run the app: 
+
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+library("gbifexplorer")
+gbifexplorer::taxo_reportApp()
+```
+
+

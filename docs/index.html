@@ -78,6 +78,101 @@
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ajpelu/gbifexplorer"</span><span class="op">)</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<p>The <code>gbifexplorer</code> package provides several functions for exploring and analyzing occurrence data from the Global Biodiversity Information Facility (GBIF). Here is an example of the usage of three key functions: <code>cov_temporal</code>, <code>taxonomic_cov</code>, and <code>report_taxonomy</code>.</p>
+<p>We will use a dataset contains information about the phenology of flora in Mediterranean high-mountains meadows in the Sierra Nevada region (Spain). This dataset is deposited in <a href="https://doi.org/10.15468/qhqzub" class="external-link">GBIF</a> and also published as <a href="https://doi.org/10.3897/phytokeys.46.9116" class="external-link">Data Paper</a>. It also is included as example data in the <code>gbifexplorer</code> pkg.</p>
+<div class="section level3">
+<h3 id="calculate-the-temporal-coverage-of-an-ocurrence-dataset">Calculate the Temporal Coverage of an Ocurrence Dataset<a class="anchor" aria-label="anchor" href="#calculate-the-temporal-coverage-of-an-ocurrence-dataset"></a>
+</h3>
+<p>The <code><a href="reference/cov_temporal.html">gbifexplorer::cov_temporal()</a></code> function calculates the temporal coverage of a dataset based on a specified date variable provided by the user. It determines the minimum and maximum dates from the date variable and returns them in a data frame.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ajpelu/gbifexplorer" class="external-link">gbifexplorer</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"borreguiles"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate temporal coverage</span></span>
+<span><span class="va">temporal_coverage</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cov_temporal.html">cov_temporal</a></span><span class="op">(</span><span class="va">borreguiles</span>, date_var <span class="op">=</span> <span class="st">"eventDate"</span>, </span>
+<span>                                  date_format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The temporal coverage of the dataset is 1988-05-18 to 2013-10-17.</span></span></code></pre></div>
+<p>It returns a data frame (<code>temporal_coverage</code>) that contains the minimum and maximum dates from the dataset. This function also prints the temporal coverage as text and could be used to document the metadata of the dataset.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="get-the-taxonomic-coverage-of-an-ocurrence-dataset-and-report-it">Get the Taxonomic Coverage of an Ocurrence Dataset and report it.<a class="anchor" aria-label="anchor" href="#get-the-taxonomic-coverage-of-an-ocurrence-dataset-and-report-it"></a>
+</h2>
+<p>The <code><a href="reference/taxonomic_cov.html">gbifexplorer::taxonomic_cov()</a></code> function generates the taxonomic coverage of a dataframe. It calculates the record numbers and relative frequencies of each taxonomic category specified, allowing to compute the taxonomic coverage of an occurence dataset. The function returns a named list of tibbles summarizing the taxonomic coverage for each category.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate taxonomic coverage for scientificName and genus</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/taxonomic_cov.html">taxonomic_cov</a></span><span class="op">(</span><span class="va">borreguiles</span>, category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"class"</span>, <span class="st">"order"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">d</span></span>
+<span><span class="co">#&gt; $class</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span><span class="co">#&gt;   class             n   freq</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;         &lt;int&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 Magnoliopsida  6057 55.1  </span></span>
+<span><span class="co">#&gt; 2 Liliopsida     4882 44.4  </span></span>
+<span><span class="co">#&gt; 3 Psilotopsida     63  0.573</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $order</span></span>
+<span><span class="co">#&gt; # A tibble: 19 × 3</span></span>
+<span><span class="co">#&gt;    order              n     freq</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;          &lt;int&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Poales          4869 44.3    </span></span>
+<span><span class="co">#&gt;  2 Lamiales        1378 12.5    </span></span>
+<span><span class="co">#&gt;  3 Fabales         1190 10.8    </span></span>
+<span><span class="co">#&gt;  4 Asterales       1032  9.38   </span></span>
+<span><span class="co">#&gt;  5 Gentianales      996  9.05   </span></span>
+<span><span class="co">#&gt;  6 Ranunculales     460  4.18   </span></span>
+<span><span class="co">#&gt;  7 Caryophyllales   425  3.86   </span></span>
+<span><span class="co">#&gt;  8 Celastrales      209  1.90   </span></span>
+<span><span class="co">#&gt;  9 Malpighiales     200  1.82   </span></span>
+<span><span class="co">#&gt; 10 Ericales         103  0.936  </span></span>
+<span><span class="co">#&gt; 11 Ophioglossales    63  0.573  </span></span>
+<span><span class="co">#&gt; 12 Apiales           31  0.282  </span></span>
+<span><span class="co">#&gt; 13 Saxifragales      17  0.155  </span></span>
+<span><span class="co">#&gt; 14 Boraginales        9  0.0818 </span></span>
+<span><span class="co">#&gt; 15 Liliales           8  0.0727 </span></span>
+<span><span class="co">#&gt; 16 Asparagales        5  0.0454 </span></span>
+<span><span class="co">#&gt; 17 Brassicales        3  0.0273 </span></span>
+<span><span class="co">#&gt; 18 Rosales            3  0.0273 </span></span>
+<span><span class="co">#&gt; 19 Myrtales           1  0.00909</span></span></code></pre></div>
+<p>The result is a list contains tibbles summarizing the taxonomic coverage for each taxonomic category.</p>
+<p>Then, it is possible to generate a Report for different taxa categories by using the <code><a href="reference/report_taxonomy.html">gbifexplorer::report_taxonomy()</a></code> function. It generates a summary report of the taxonomy of a specified taxa rank, and provides information about the most represented taxa based on the frequency information of the taxa rank. The default is the top 5 most represented taxa but is could be change using the argument <code>top</code></p>
+<p>For instance, if you are interested in the 5 most frequent order:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/report_taxonomy.html">report_taxonomy</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">order</span>, top <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   There are 19 order included in the dataset. The 5 order most represented in the dataset are: Poales (44.26 %), Lamiales (12.52 %), Fabales (10.82 %), Asterales (9.38 %) and Gentianales (9.05 %).</span></span></code></pre></div>
+<p>The user might also be interested in calculate the taxonomic coverage for all taxonomic categories present in an occurrence dataset. For this, we also used the <code>purrr</code> package</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span>
+<span><span class="va">all_taxa</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/taxonomic_cov.html">taxonomic_cov</a></span><span class="op">(</span><span class="va">borreguiles</span>, category <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">all_taxa</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="reference/report_taxonomy.html">report_taxonomy</a></span><span class="op">(</span><span class="va">.</span>, top<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/list_transpose.html" class="external-link">list_transpose</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt;   There are 94 scientificName included in the dataset. The 10 scientificName most represented in the dataset are: Nardus stricta L. (9.35 %), Carex nigra (L.) Reichard (6.67 %), Euphrasia willkommii Freyn (6.47 %), Lotus corniculatus L. subsp. glacialis (Boiss.) Valdés (5.49 %), Scorzoneroides (5.32 %), Eleocharis quinqueflora (Hartmann) O.Schwarz (4.54 %), Festuca iberica (Hack.) Patzke (4.46 %), Carex nevadensis Boiss. &amp; Reut. (4.38 %), Gentiana boryi Boiss. (3.7 %) and Plantago nivalis Jord. (2.92 %).</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   All records belong to the kingdom Plantae</span></span>
+<span><span class="co">#&gt;   There are 2 phylum included in the dataset. The 2 phylum most represented in the dataset are: Magnoliophyta (99.43 %) and Pteridophyta (0.57 %).</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   There are 3 class included in the dataset. The 3 class most represented in the dataset are: Magnoliopsida (55.05 %), Liliopsida (44.37 %) and Psilotopsida (0.57 %).</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   There are 19 order included in the dataset. The 10 order most represented in the dataset are: Poales (44.26 %), Lamiales (12.52 %), Fabales (10.82 %), Asterales (9.38 %), Gentianales (9.05 %), Ranunculales (4.18 %), Caryophyllales (3.86 %), Celastrales (1.9 %), Malpighiales (1.82 %) and Ericales (0.94 %).</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   There are 28 family included in the dataset. The 10 family most represented in the dataset are: Cyperaceae (21.12 %), Poaceae (19.52 %), Fabaceae (10.82 %), Asteraceae (9.01 %), Gentianaceae (8.82 %), Scrophulariaceae (7.22 %), Ranunculaceae (4.18 %), Caryophyllaceae (3.75 %), Juncaceae (3.61 %) and Plantaginaceae (2.92 %).</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   There are 52 genus included in the dataset. The 10 genus most represented in the dataset are: Carex (16.58 %), Nardus (9.35 %), Scorzoneroides (9 %), Gentiana (8.8 %), Euphrasia (6.47 %), Lotus (5.49 %), Trifolium (5.33 %), Festuca (4.77 %), Eleocharis (4.54 %) and Agrostis (4.44 %).</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="interctive-app">Interctive app<a class="anchor" aria-label="anchor" href="#interctive-app"></a>
+</h2>
+<p>We also have developed a shiny app to allow the user to generate the taxonomic coverage of an occurence data. To run the app:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/ajpelu/gbifexplorer" class="external-link">"gbifexplorer"</a></span><span class="op">)</span></span>
+<span><span class="fu">gbifexplorer</span><span class="fu">::</span><span class="fu"><a href="reference/taxo_reportApp.html">taxo_reportApp</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>

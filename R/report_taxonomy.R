@@ -27,8 +27,8 @@
 
 report_taxonomy <- function(x, top = 5){
 
-  if (!inherits(x, 'data.frame')) {
-    stop("Argument 'x' must be a data frame")
+  if (!inherits(x, 'data.frame') && !inherits(x, 'tbl_df')) {
+    stop("Argument 'x' must be a data frame or tibble")
   }
 
   if (!is.numeric(top) || top < 1) {

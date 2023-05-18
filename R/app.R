@@ -1,4 +1,13 @@
+#' App to generate taxonomic report
+#'
+#' @examples
+#' \dontrun{
+#' data(borreguiles)
+#' taxo_reportApp()
+#'}
+#'
 #' @import shiny
+#' @export
 taxo_reportApp <- function() {
 
   # UI

@@ -31,13 +31,10 @@
     <loc>https://ajpelu.github.io/gbifexplorer/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/reference/myApp.html</loc>
-  </url>
-  <url>
     <loc>https://ajpelu.github.io/gbifexplorer/reference/report_taxonomy.html</loc>
   </url>
   <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/reference/runApp.html</loc>
+    <loc>https://ajpelu.github.io/gbifexplorer/reference/taxo_reportApp.html</loc>
   </url>
   <url>
     <loc>https://ajpelu.github.io/gbifexplorer/reference/taxonomic_cov.html</loc>

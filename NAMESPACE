@@ -2,6 +2,7 @@
 
 export(cov_temporal)
 export(report_taxonomy)
+export(taxo_reportApp)
 export(taxonomic_cov)
 import(dplyr)
 import(glue)
