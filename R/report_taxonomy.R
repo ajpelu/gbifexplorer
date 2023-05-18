@@ -59,7 +59,7 @@ report_taxonomy <- function(x, top = 5){
     represented <- glue::glue_collapse(x_subset$message, sep = ", ", last = " and ")
 
     glue::glue('
-             There are {n_taxa} {taxa_rank} included in the dataset. The {top} {taxa_rank} most represented in the dataset are: {represented}.
+             There are {n_taxa} {taxa_rank} included in the dataset. The {top} {taxa_rank} most represented in the dataset are: {represented}.\n
            ')
   }
 }
