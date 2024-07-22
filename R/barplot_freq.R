@@ -35,6 +35,8 @@ barplot_freq <- function(data, sort_by = c("freq", "name"),
                      show_n = FALSE,
                      label_color = "white", ...) {
 
+  freq  <- NULL
+
   if (!inherits(data, c("data.frame", "tbl_df", "tbl"))) {
     stop("Invalid 'data' argument. Must be a data.frame or tibble.")
   }

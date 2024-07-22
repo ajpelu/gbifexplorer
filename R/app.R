@@ -10,6 +10,8 @@
 #' @export
 taxo_reportApp <- function() {
 
+  n <- freq  <- NULL
+
   # UI
   ui <- fluidPage(
     titlePanel("Taxonomic Coverage Report"),
@@ -30,7 +32,7 @@ taxo_reportApp <- function() {
 
   # Server
   server <- function(input, output, session) {
-    data <- reactiveVal(NULL)
+    uploadedData <- reactiveVal(NULL)
 
     observeEvent(input$file, {
       req(input$file)
@@ -46,7 +48,7 @@ taxo_reportApp <- function() {
         data_value <- read.delim(input$file$datapath, sep = "\t")
       }
 
-      data(data_value)
+      uploadedData(data_value)
     })
 
     observeEvent(input$categories, {
@@ -57,7 +59,7 @@ taxo_reportApp <- function() {
     })
 
     generateReport <- function() {
-      req(data())
+      req(uploadedData())
 
       categories <- input$categories
 
@@ -68,7 +70,7 @@ taxo_reportApp <- function() {
       if ("all" %in% categories) {
         # If "all" is selected, generate report for all categories
         categories <- setdiff(categories, "all")
-        coverage <- taxonomic_cov(data(), category = categories)
+        coverage <- taxonomic_cov(uploadedData(), category = categories)
 
         reports <- lapply(categories, function(category) {
           if (category %in% names(coverage)) {
@@ -80,7 +82,7 @@ taxo_reportApp <- function() {
         })
       } else {
         # Generate report for selected categories
-        coverage <- taxonomic_cov(data(), category = categories)
+        coverage <- taxonomic_cov(uploadedData(), category = categories)
 
         reports <- lapply(categories, function(category) {
           if (category %in% names(coverage)) {
