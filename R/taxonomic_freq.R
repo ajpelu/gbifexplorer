@@ -24,8 +24,7 @@ taxonomic_freq <- function(x, category, code_unknown = NA){
   n <- freq  <- NULL
 
   dwc_categories <- c(
-    "kingdom", "phylum", "class",
-    "order", "family", "subfamily", "genus", "scientificName")
+    "kingdom", "phylum", "class", "order", "family", "subfamily", "genus", "scientificName")
 
   if(!(category %in% dwc_categories)) {
     stop(paste("category must be one of the:", paste(dwc_categories, collapse = ", ")))
