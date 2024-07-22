@@ -42,7 +42,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">taxonomic_cov</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"scientificName"</span>, <span class="st">"kingdom"</span>, <span class="st">"phylum"</span>, <span class="st">"class"</span>, <span class="st">"order"</span>, <span class="st">"family"</span>,</span>
-<span>    <span class="st">"subfamily"</span>, <span class="st">"genus"</span>, <span class="st">"all"</span><span class="op">)</span></span>
+<span>    <span class="st">"subfamily"</span>, <span class="st">"genus"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
+<span>  code_unknown <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -56,7 +57,11 @@
 
 <dt id="arg-category">category<a class="anchor" aria-label="anchor" href="#arg-category"></a></dt>
 <dd><p>a character vector with taxonomic ranks defined by
-<a href="https://dwc.tdwg.org/terms/" class="external-link">DarwinCore</a> standard.</p></dd>
+<a href="https://dwc.tdwg.org/terms/" class="external-link">DarwinCore</a> standard.
+#' @param code_unknown a custom string that identified the unclassified records
+at taxa level (default to NA). If the dataset contains a custom string to
+identify the unclassified taxa, please specify it here, <em>e.g.</em> "unclass.",
+"unknown". See <code><a href="taxonomic_freq.html">taxonomic_freq()</a></code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -78,36 +83,38 @@ type <code>all</code>.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">borreguiles</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Calculate taxonomic coverage for scientificName and genus</span></span></span>
 <span class="r-in"><span><span class="fu">taxonomic_cov</span><span class="op">(</span><span class="va">borreguiles</span>, category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"scientificName"</span>, <span class="st">"genus"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(scientificName, n)`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(genus, n)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $scientificName</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 94 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    scientificName                                             n  freq</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Nardus stricta L.                                       <span style="text-decoration: underline;">1</span>029  9.35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Carex nigra (L.) Reichard                                734  6.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Euphrasia willkommii Freyn                               712  6.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Lotus corniculatus L. subsp. glacialis (Boiss.) Valdés   604  5.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Scorzoneroides                                           585  5.32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Eleocharis quinqueflora (Hartmann) O.Schwarz             500  4.54</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Festuca iberica (Hack.) Patzke                           491  4.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Carex nevadensis Boiss. &amp; Reut.                          482  4.38</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Gentiana boryi Boiss.                                    407  3.70</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Plantago nivalis Jord.                                   321  2.92</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 94 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    scientificName                                             n freq_all  freq</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Nardus stricta L.                                       <span style="text-decoration: underline;">1</span>029     9.35  9.35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Carex nigra (L.) Reichard                                734     6.67  6.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Euphrasia willkommii Freyn                               712     6.47  6.47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Lotus corniculatus L. subsp. glacialis (Boiss.) Valdés   604     5.49  5.49</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Scorzoneroides                                           585     5.32  5.32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Eleocharis quinqueflora (Hartmann) O.Schwarz             500     4.54  4.54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Festuca iberica (Hack.) Patzke                           491     4.46  4.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Carex nevadensis Boiss. &amp; Reut.                          482     4.38  4.38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Gentiana boryi Boiss.                                    407     3.70  3.70</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Plantago nivalis Jord.                                   321     2.92  2.92</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 84 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $genus</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 52 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    genus              n  freq</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Carex           <span style="text-decoration: underline;">1</span>824 16.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nardus          <span style="text-decoration: underline;">1</span>029  9.35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Scorzoneroides   990  9.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Gentiana         968  8.80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Euphrasia        712  6.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Lotus            604  5.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Trifolium        586  5.33</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Festuca          525  4.77</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Eleocharis       500  4.54</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Agrostis         488  4.44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 52 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    genus              n freq_all  freq</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Carex           <span style="text-decoration: underline;">1</span>824    16.6  16.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nardus          <span style="text-decoration: underline;">1</span>029     9.35  9.35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Scorzoneroides   990     9.00  9.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Gentiana         968     8.80  8.80</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Euphrasia        712     6.47  6.47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Lotus            604     5.49  5.49</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Trifolium        586     5.33  5.33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Festuca          525     4.77  4.77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Eleocharis       500     4.54  4.54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Agrostis         488     4.44  4.44</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 42 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
