@@ -1,45 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/404.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/reference/barplot_freq.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/reference/borreguiles.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/reference/cov_temporal.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/reference/gbifexplorer-package.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/reference/report_taxonomy.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/reference/taxo_reportApp.html</loc>
-  </url>
-  <url>
-    <loc>https://ajpelu.github.io/gbifexplorer/reference/taxonomic_cov.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ajpelu.github.io/gbifexplorer/404.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/LICENSE-text.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/LICENSE.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/authors.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/index.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/news/index.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/reference/barplot_freq.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/reference/borreguiles.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/reference/cov_temporal.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/reference/gbifexplorer-package.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/reference/index.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/reference/report_taxonomy.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/reference/taxo_reportApp.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/reference/taxonomic_cov.html</loc></url>
+<url><loc>https://ajpelu.github.io/gbifexplorer/reference/taxonomic_freq.html</loc></url>
 </urlset>
+
