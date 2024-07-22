@@ -7,14 +7,19 @@
 taxonomic_cov(
   x,
   category = c("scientificName", "kingdom", "phylum", "class", "order", "family",
-    "subfamily", "genus", "all")
+    "subfamily", "genus", "all"),
+  code_unknown = NA
 )
 }
 \arguments{
 \item{x}{A dataframe}
 
 \item{category}{a character vector with taxonomic ranks defined by
-\href{https://dwc.tdwg.org/terms/}{DarwinCore} standard.}
+\href{https://dwc.tdwg.org/terms/}{DarwinCore} standard.
+#' @param code_unknown a custom string that identified the unclassified records
+at taxa level (default to NA). If the dataset contains a custom string to
+identify the unclassified taxa, please specify it here, \emph{e.g.} "unclass.",
+"unknown". See \code{\link[=taxonomic_freq]{taxonomic_freq()}}}
 }
 \value{
 A named list of tibbles summarizing the taxonomic coverage for each category.

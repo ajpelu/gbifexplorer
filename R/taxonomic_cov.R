@@ -4,6 +4,10 @@
 #' @param x A dataframe
 #' @param category a character vector with taxonomic ranks defined by
 #' [DarwinCore](https://dwc.tdwg.org/terms/) standard.
+#' #' @param code_unknown a custom string that identified the unclassified records
+#' at taxa level (default to NA). If the dataset contains a custom string to
+#' identify the unclassified taxa, please specify it here, *e.g.* "unclass.",
+#' "unknown". See [taxonomic_freq()]
 #'
 #' @details It generates the taxonomic coverage of a occurrence dataset. For each
 #' category, the record numbers and relative frequencies of each taxa are computed. The
@@ -27,7 +31,8 @@ taxonomic_cov <- function(x,
                           category = c(
                             "scientificName", "kingdom", "phylum", "class",
                             "order", "family", "subfamily", "genus", "all"
-                          )) {
+                          ),
+                          code_unknown = NA) {
   all_categories <- c(
     "scientificName", "kingdom", "phylum", "class",
     "order", "family", "subfamily", "genus", "all"
@@ -48,18 +53,10 @@ taxonomic_cov <- function(x,
     select_categories <- category
   }
 
-  aux_summary <- function(categories) {
-    n <- freq <- NULL
-    x |>
-      # group_by(!!!syms(y)) |>
-      dplyr::group_by(dplyr::across(dplyr::all_of(categories))) |>
-      dplyr::tally() |>
-      dplyr::mutate(freq = prop.table(n) * 100) |>
-      dplyr::arrange(dplyr::desc(freq))
-  }
+  out <- purrr::set_names(
+            purrr::map(select_categories,
+                       ~taxonomic_freq(x, category = .x, code_unknown = code_unknown)),
+            select_categories)
 
-  out <- select_categories |>
-    purrr::map(aux_summary) |>
-    purrr::set_names(select_categories)
   return(out)
 }
